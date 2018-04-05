@@ -1,7 +1,8 @@
 {% extends "base.jinja2" %}
 
 {% block content %}
-<form class="s-form">
+<form class="s-form" method="GET">
+  <p>Login</p>
   <fieldset>
     <label for="username">Username:</label>
     <input type="text" name="username" required>
@@ -13,18 +14,19 @@
   <button class="btn btn-l-rnd bg-primary fg-llgrey">Login</button>
 </form>
 
-<form class="s-form">
+<form class="s-form" method="POST">
+  <p>Sign up</p>
   <fieldset>
     <label for="username">Username:</label>
     <input type="text" name="username" required>
   </fieldset>
   <fieldset>
     <label for="password">Password:</label>
-    <input type="text" name="password" required>
+    <input type="password" name="password" required>
   </fieldset>
   <fieldset>
     <label for="confirm-password">Confirm Password:</label>
-    <input type="text" name="confirm-password">
+    <input type="password" name="confirm-password">
   </fieldset> 
   <button class="btn btn-l-rnd bg-primary fg-llgrey">Register</button>
 </form>

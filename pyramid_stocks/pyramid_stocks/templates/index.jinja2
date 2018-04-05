@@ -1,4 +1,4 @@
-{% extends "base.jinja" %}
+{% extends "base.jinja2" %}
 
 {% block content %}
 <section class="welcome">
@@ -8,7 +8,7 @@
     <span class="transparent fadein_three">Get better <span class="fg-primary">results</span>.</span>
   </p>
 
-  <a href="/auth"><button class="btn btn-l-rnd bg-primary fg-llgrey">Login</button></a>
-  <a href="/auth"><button class="btn btn-l-rnd bg-primary fg-llgrey">Sign Up</button></a>
+  <a href="{{request.route_url('auth')}}"><button class="btn btn-l-rnd bg-primary fg-llgrey">Login</button></a>
+  <a href="{{request.route_url('auth')}}"><button class="btn btn-l-rnd bg-primary fg-llgrey">Sign Up</button></a>
 </section>
 {% endblock %}

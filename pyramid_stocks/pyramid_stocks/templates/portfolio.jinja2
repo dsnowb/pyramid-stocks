@@ -1,32 +1,11 @@
 {% extends "base.jinja2" %}
 
 {% block content %}
-<table class="tbl-tickers">
-  <thead>
-    <td>TICKER</td>
-    <td>CURRENT PRICE</td>
-    <td>DAY CHANGE</td>
-  </thead>
 
-  <tr>
-    <td>AAPL</td>
-    <td>167.78</td>
-    <td>Up 1.30</td>
-  </tr>
-  <tr>
-    <td>GOOG</td>
-    <td>1031.79</td>
-    <td>Up 27.23</td>
-  </tr>
-  <tr>
-    <td>MSFT</td>
-    <td>91.27</td>
-    <td>up 1.88</td>
-  </tr>
-  <tr>
-    <td>TSLA</td>
-    <td>266.13</td>
-    <td>Up 8.35</td>
-  </tr>
-</table>
+{% for company in mock_data %}
+<a href="{{request.route_url('stock-detail',symbol=company.symbol)}}"><h2>{{company.symbol}} - {{company.companyName}}</h2></a>
+<p>{{company.website}}</p>
+<p>CEO: {{company.CEO}}</p>
+{% endfor %}
+
 {% endblock %}

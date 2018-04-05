@@ -2,22 +2,13 @@
 
 {% block content %}
 <section class="ticker-detail">
-  <div>
-    <p>Apple Corporation</p>
-    <p>
-      <span>AAPL</span>
-      <span>167.78</span>
-      <span>Up 167.78</span>
-    </p>
-  </div>
-
-  <div>
-    <p>Daily Detail</p>
-    <ul>
-      <li>Open: <span>167.80</span></li>
-      <li>Close: <span>167.78</span></li>
-      <li>Volume: <span>38,398,505</span></li>
-    </ul>
-  </div>
+  <h2>{{company.companyName}}</h2>
+  <p>{{company.exchange}}</p>
+  <h2>{{company.industry}}</h2>
+  <h2>{{company.website}}</h2>
+  <p>{{company.description}}</p>
+  <p>{{company.CEO}}</p>
+  <h2>{{company.issueType}}</h2>
+  <p>{{company.sector}}</p>
 </section>
 {% endblock %}

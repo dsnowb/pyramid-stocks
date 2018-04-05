@@ -16,7 +16,7 @@ p {
   color: #444;
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
   width: 200px;
   line-height: 30px;
 }

@@ -1,39 +1,63 @@
 from pyramid.response import Response
 from pyramid.view import view_config
-
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 from sqlalchemy.exc import DBAPIError
-
+from ..sample_data import MOCK_DATA
 from ..models import MyModel
 
-
-# @view_config(route_name='home', renderer='../templates/mytemplate.jinja2')
-# def my_view(request):
-#     try:
-#         query = request.dbsession.query(MyModel)
-#         one = query.filter(MyModel.name == 'one').first()
-#     except DBAPIError:
-#         return Response(db_err_msg, content_type='text/plain', status=500)
-#     return {'one': one, 'project': 'pyramid_stocks'}
 
 @view_config(route_name='home', renderer='../templates/index.jinja2')
 def home_view(request):
     return {}
 
+
 @view_config(route_name='auth', renderer='../templates/auth.jinja2')
 def auth_view(request):
-    return {}
+    if request.method == 'GET':
+        try:
+            username = request.GET['username']
+            password = request.GET['password']
+
+            return HTTPFound(location=request.route_url('portfolio'))
+
+        except KeyError:
+            return {}
+
+        return HTTPFound(location=request.route_url('portfolio'))
+    
+    if request.method == 'POST':
+        try:
+            username = request.POST['username']
+            password = request.POST['password']
+        except KeyError:
+            return HTTPNotFound()
+
+        return HTTPFound(location=request.route_url('portfolio'))
+
 
 @view_config(route_name='stock', renderer='../templates/stock-add.jinja2')
 def stock_view(request):
     return {}
 
+
 @view_config(route_name='portfolio', renderer='../templates/portfolio.jinja2')
 def portfolio_view(request):
-    return {}
+    return {'mock_data' : MOCK_DATA}
+
 
 @view_config(route_name='stock-detail', renderer='../templates/stock-detail.jinja2')
 def stock_detail_view(request):
-    return {}
+    try:
+        symbol = request.matchdict['symbol']
+    except KeyError:
+        return HTTPNotFound()
+
+    for company in MOCK_DATA:
+        if company['symbol'] == symbol:
+            return {'company': company}
+
+    return HTTPNotFound()
+
 
 db_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
