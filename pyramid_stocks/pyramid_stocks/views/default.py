@@ -19,7 +19,7 @@ from ..models import MyModel
 def home_view(request):
     return {}
 
-@view_config(route_name='auth', renderer='../templates/register.jinja2')
+@view_config(route_name='auth', renderer='../templates/auth.jinja2')
 def auth_view(request):
     return {}
 

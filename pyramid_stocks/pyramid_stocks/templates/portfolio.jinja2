@@ -1,56 +1,32 @@
-<DOCTYPE html>
-<html>
-  <head>
-    <title>Stock Portfolio</title>
-    <link rel="stylesheet" href="../static/styles/base/reset.css">
-    <link rel="stylesheet" href="../static/styles/base/base.css">
-    <link rel="stylesheet" href="../static/styles/layout/layout.css">
-    <link rel="stylesheet" href="../static/styles/modules/modules.css">
-    <link rel="stylesheet" href="../static/styles/state/state.css">
-    <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Share+Tech" rel="stylesheet">
-    <meta charset="UTF8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  
-  <body>
-    <header class="site-header">
-      <a href="/">
-        <h1>Portfolio Builder</h1>
-        <p>Better data. Better results.</p>
-      </a>
-    </header>
-    
-    <main class="main-content">
-      <table class="tbl-tickers">
-        <thead>
-          <td>TICKER</td>
-          <td>CURRENT PRICE</td>
-          <td>DAY CHANGE</td>
-        </thead>
+{% extends "base.jinja2" %}
 
-        <tr>
-          <td>AAPL</td>
-          <td>167.78</td>
-          <td>Up 1.30</td>
-        </tr>
-        <tr>
-          <td>GOOG</td>
-          <td>1031.79</td>
-          <td>Up 27.23</td>
-        </tr>
-        <tr>
-          <td>MSFT</td>
-          <td>91.27</td>
-          <td>up 1.88</td>
-        </tr>
-        <tr>
-          <td>TSLA</td>
-          <td>266.13</td>
-          <td>Up 8.35</td>
-        </tr>
-      </table>
+{% block content %}
+<table class="tbl-tickers">
+  <thead>
+    <td>TICKER</td>
+    <td>CURRENT PRICE</td>
+    <td>DAY CHANGE</td>
+  </thead>
 
-    </main>
-  
-  </body>
-</html>
+  <tr>
+    <td>AAPL</td>
+    <td>167.78</td>
+    <td>Up 1.30</td>
+  </tr>
+  <tr>
+    <td>GOOG</td>
+    <td>1031.79</td>
+    <td>Up 27.23</td>
+  </tr>
+  <tr>
+    <td>MSFT</td>
+    <td>91.27</td>
+    <td>up 1.88</td>
+  </tr>
+  <tr>
+    <td>TSLA</td>
+    <td>266.13</td>
+    <td>Up 8.35</td>
+  </tr>
+</table>
+{% endblock %}
