@@ -34,6 +34,8 @@ def auth_view(request):
 
         return HTTPFound(location=request.route_url('portfolio'))
 
+    return HTTPNotFound()
+
 
 @view_config(route_name='stock', renderer='../templates/stock-add.jinja2')
 def stock_view(request):
@@ -42,8 +44,9 @@ def stock_view(request):
 
 @view_config(route_name='portfolio', renderer='../templates/portfolio.jinja2')
 def portfolio_view(request):
-    return {'mock_data' : MOCK_DATA}
-
+    if request.method == 'GET':
+        return {'mock_data' : MOCK_DATA}
+    return HTTPNotFound()
 
 @view_config(route_name='stock-detail', renderer='../templates/stock-detail.jinja2')
 def stock_detail_view(request):
