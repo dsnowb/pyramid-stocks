@@ -11,4 +11,4 @@ def dummy_post_request():
 
 @pytest.fixture
 def dummy_post_user_pass_request():
-    return testing.DummyRequest(method="POST" post={'username':'A', 'password':'B'})
+    return testing.DummyRequest(method="POST", post={'username':'A', 'password':'B'})
