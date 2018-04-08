@@ -4,7 +4,9 @@ from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 from sqlalchemy.exc import DBAPIError
 from ..sample_data import MOCK_DATA
 from ..models import MyModel
+import requests
 
+IEX_API_URL = 'https://api.iextrading.com/1.0'
 
 @view_config(route_name='home', renderer='../templates/index.jinja2')
 def home_view(request):
@@ -37,16 +39,50 @@ def auth_view(request):
     return HTTPNotFound()
 
 
-@view_config(route_name='stock', renderer='../templates/stock-add.jinja2')
-def stock_view(request):
-    return {}
-
-
 @view_config(route_name='portfolio', renderer='../templates/portfolio.jinja2')
 def portfolio_view(request):
     if request.method == 'GET':
         return {'mock_data' : MOCK_DATA}
     return HTTPNotFound()
+
+
+@view_config(route_name='stock', renderer='../templates/stock-add.jinja2')
+def stock_view(request):
+    if request.method == 'GET':
+        try:
+            symbol = request.GET['symbol']
+        except KeyError:
+            return {}
+
+        response = requests.get('{}/stock/{}/company'.format(IEX_API_URL, symbol))
+        try:
+            company = response.json()
+        except:
+            return {}
+        
+        response = requests.get('{}/stock/{}/time-series'.format(IEX_API_URL, symbol))
+        time_series = response.json()
+        rev_ts = []
+        for i in range(len(time_series) - 1,-1,-1):
+            rev_ts.append(time_series[i])
+            if not i % 5:
+                rev_ts.append({})
+        return {'company': company, 'time_series': rev_ts}
+
+    if request.method == 'POST':
+        try:
+            symbol = request.POST['symbol']
+        except KeyError:
+            return HTTPNotFound()
+
+        for company in MOCK_DATA:
+            if company['symbol'] == symbol:
+                return HTTPFound(location=request.route_url('portfolio'))
+        
+        company = requests.get('{}/stock/{}/company'.format(IEX_API_URL, symbol))
+        MOCK_DATA.append(company.json())
+        return HTTPFound(location=request.route_url('portfolio'))
+       
 
 @view_config(route_name='stock-detail', renderer='../templates/stock-detail.jinja2')
 def stock_detail_view(request):

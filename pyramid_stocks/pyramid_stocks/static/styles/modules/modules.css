@@ -1,5 +1,5 @@
 .ticker-detail {
-  width: 480px;
+  width: 80%;
   margin: 0 auto;
 }
 
@@ -20,6 +20,17 @@
 
 .ticker-detail div {
   margin-bottom: 50px;
+}
+
+.ticker-detail table {
+  margin-top: 30px;
+}
+
+.ticker-detail td {
+  width: 125px;
+  font-size: 16px;
+  text-align: left;
+  padding: 5px;
 }
 
 .ticker-detail li {
