@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{% for company in mock_data %}
+{% for company in companies %}
 <a href="{{request.route_url('stock-detail',symbol=company.symbol)}}"><h2>{{company.symbol}} - {{company.companyName}}</h2></a>
 <p>{{company.website}}</p>
 <p>CEO: {{company.CEO}}</p>

@@ -1,9 +1,10 @@
 from pyramid.response import Response
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPFound, HTTPNotFound
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPBadRequest
 from sqlalchemy.exc import DBAPIError
 from ..sample_data import MOCK_DATA
-from ..models import MyModel
+from ..models import Account
+from ..models import Stock
 import requests
 
 IEX_API_URL = 'https://api.iextrading.com/1.0'
@@ -42,7 +43,14 @@ def auth_view(request):
 @view_config(route_name='portfolio', renderer='../templates/portfolio.jinja2')
 def portfolio_view(request):
     if request.method == 'GET':
-        return {'mock_data' : MOCK_DATA}
+        try:
+            query = request.dbsession.query(Stock)
+            all_entries = query.all()
+        except DBAPIError:
+            return DBAPIError(db_err_msg, content_type='text/plain', status=500)
+
+        return {'companies': all_entries}
+
     return HTTPNotFound()
 
 
@@ -65,22 +73,36 @@ def stock_view(request):
         rev_ts = []
         for i in range(len(time_series) - 1,-1,-1):
             rev_ts.append(time_series[i])
-            if not i % 5:
-                rev_ts.append({})
         return {'company': company, 'time_series': rev_ts}
 
     if request.method == 'POST':
         try:
             symbol = request.POST['symbol']
         except KeyError:
+            return HTTPBadRequest()
+
+        try:
+            response = requests.get('{}/stock/{}/company'.format(IEX_API_URL, symbol))
+            response = response.json()
+        except:
             return HTTPNotFound()
 
-        for company in MOCK_DATA:
-            if company['symbol'] == symbol:
-                return HTTPFound(location=request.route_url('portfolio'))
-        
-        company = requests.get('{}/stock/{}/company'.format(IEX_API_URL, symbol))
-        MOCK_DATA.append(company.json())
+        query = request.dbsession.query(Stock)
+        try:
+            record = query.filter(Stock.symbol==symbol).first()
+            record.symbol = response['symbol']
+            record.companyName = response['companyName']
+            record.exchange = response['exchange']
+            record.industry = response['industry']
+            record.website = response['website']
+            record.description = response['description']
+            record.CEO = response['CEO']
+            record.issueType = response['issueType']
+            record.sector = response['sector']
+
+        except KeyError:     
+            request.dbsession.add(Stock(**response))
+
         return HTTPFound(location=request.route_url('portfolio'))
        
 
@@ -91,8 +113,14 @@ def stock_detail_view(request):
     except KeyError:
         return HTTPNotFound()
 
-    for company in MOCK_DATA:
-        if company['symbol'] == symbol:
+    try:
+        query = request.dbsession.query(Stock)
+    
+    except DBAPIError:
+        return DBAPIError(db_err_msg, content_type='text/plain', status=500)
+
+    for company in query.all():
+        if company.symbol == symbol:
             return {'company': company}
 
     return HTTPNotFound()
