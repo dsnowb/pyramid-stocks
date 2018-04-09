@@ -1,0 +1,25 @@
+.site-header {
+  width: 100%;
+  height: 200px;
+  margin-top: 20px;
+  text-align: center;
+  font-family: 'Cormorant Garamond';
+}
+
+.site-header h1 {
+  display: inline-block;
+  border-bottom: 1px solid #666;
+  font-size: 60px;
+  color: #060606
+}
+
+.site-header p {
+  margin-top: 5px;
+  font-size: 24px;
+  color: #222
+}
+
+.main-content {
+  width: 100%;
+  margin: 0 auto;
+}

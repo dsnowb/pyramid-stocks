@@ -1,0 +1,16 @@
+@keyframes fadein {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.fadein_one {
+  animation: fadein 1s ease-in 1s forwards;
+}
+
+.fadein_two {
+  animation: fadein 1s ease-in 2.25s forwards;
+}
+
+.fadein_three {
+  animation: fadein 1s ease-in 3.65s forwards;
+}

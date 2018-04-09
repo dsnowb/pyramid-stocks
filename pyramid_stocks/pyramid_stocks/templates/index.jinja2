@@ -1,0 +1,14 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+<section class="welcome">
+  <p>
+    <span class="transparent fadein_one">See better <span class="fg-primary">data</span>.</span>
+    <span class="transparent fadein_two">Build better <span class="fg-primary">insights</span>.</span>
+    <span class="transparent fadein_three">Get better <span class="fg-primary">results</span>.</span>
+  </p>
+
+  <a href="{{request.route_url('auth')}}"><button class="btn btn-l-rnd bg-primary fg-llgrey">Login</button></a>
+  <a href="{{request.route_url('auth')}}"><button class="btn btn-l-rnd bg-primary fg-llgrey">Sign Up</button></a>
+</section>
+{% endblock %}

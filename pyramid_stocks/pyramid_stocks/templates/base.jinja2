@@ -1,0 +1,33 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <title>Stock Portfolio</title>
+    <link rel="stylesheet" href="{{request.static_url('pyramid_stocks:static/styles/base/reset.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('pyramid_stocks:static/styles/base/base.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('pyramid_stocks:static/styles/layout/layout.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('pyramid_stocks:static/styles/modules/modules.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('pyramid_stocks:static/styles/modules/btnform.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('pyramid_stocks:static/styles/modules/colors.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('pyramid_stocks:static/styles/state/keyframes.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Share+Tech" rel="stylesheet">
+    <meta charset="UTF8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  
+  <body>
+    <header class="site-header">
+      <a href="{{request.route_url('home')}}">
+        <h1>Portfolio Builder</h1>
+        <p>Better data. Better results.</p>
+      </a>
+    </header>
+    
+    <main class="main-content">
+
+      {% block content %}
+      {% endblock content %}
+
+    </main>
+  
+  </body>
+</html>
