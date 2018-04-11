@@ -76,7 +76,7 @@ def stock_view(request):
             record.issueType = response['issueType']
             record.sector = response['sector']
 
-        except KeyError:     
+        except AttributeError:     
             request.dbsession.add(Stock(**response))
 
         return HTTPFound(location=request.route_url('portfolio'))

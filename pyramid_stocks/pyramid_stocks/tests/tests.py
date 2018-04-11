@@ -42,11 +42,17 @@ def test_stock_view(dummy_request):
     from ..views.default import stock_view
     dummy_request.GET = {'symbol':'GE'}
     stock_view(dummy_request)['company'] == 'GE'
-'''
-def test_stock_view_post(dummy_request, db_session):
+
+def test_stock_view_post(dummy_request):
     from ..views.default import stock_view
     from pyramid.httpexceptions import HTTPFound
     dummy_request.method = 'POST'
     dummy_request.POST = {'symbol':'ge'}
     assert isinstance(stock_view(dummy_request), HTTPFound)
+'''
+def test_stock_detail_view(dummy_request, db_session):
+    from ..models import Stock
+    from ..views.default import stock_detail_view
+    dummy_request.GET = {'symbol':'gwr'}
+    assert type(stock_detail_view(dummy_request)) is dict
 '''
