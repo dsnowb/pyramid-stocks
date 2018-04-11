@@ -6,38 +6,14 @@ from ..sample_data import MOCK_DATA
 from ..models import Account
 from ..models import Stock
 import requests
+from . import db_err_msg
+from pyramid.security import NO_PERMISSION_REQUIRED
 
 IEX_API_URL = 'https://api.iextrading.com/1.0'
 
-@view_config(route_name='home', renderer='../templates/index.jinja2')
+@view_config(route_name='home', renderer='../templates/index.jinja2', permission=NO_PERMISSION_REQUIRED)
 def home_view(request):
     return {}
-
-
-@view_config(route_name='auth', renderer='../templates/auth.jinja2')
-def auth_view(request):
-    if request.method == 'GET':
-        try:
-            username = request.GET['username']
-            password = request.GET['password']
-
-            return HTTPFound(location=request.route_url('portfolio'))
-
-        except KeyError:
-            return {}
-
-        return HTTPFound(location=request.route_url('portfolio'))
-    
-    if request.method == 'POST':
-        try:
-            username = request.POST['username']
-            password = request.POST['password']
-        except KeyError:
-            return HTTPNotFound()
-
-        return HTTPFound(location=request.route_url('portfolio'))
-
-    return HTTPNotFound()
 
 
 @view_config(route_name='portfolio', renderer='../templates/portfolio.jinja2')
@@ -126,18 +102,3 @@ def stock_detail_view(request):
     return HTTPNotFound()
 
 
-db_err_msg = """\
-Pyramid is having a problem using your SQL database.  The problem
-might be caused by one of the following things:
-
-1.  You may need to run the "initialize_pyramid_stocks_db" script
-    to initialize your database tables.  Check your virtual
-    environment's "bin" directory for this script and try to run it.
-
-2.  Your database server may not be running.  Check that the
-    database server referred to by the "sqlalchemy.url" setting in
-    your "development.ini" file is running.
-
-After you fix the problem, please restart the Pyramid application to
-try it again.
-"""

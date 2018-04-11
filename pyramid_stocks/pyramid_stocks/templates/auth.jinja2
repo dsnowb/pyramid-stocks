@@ -2,6 +2,7 @@
 
 {% block content %}
 <form class="s-form" method="GET">
+  <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
   <p>Login</p>
   <fieldset>
     <label for="username">Username:</label>
@@ -15,19 +16,20 @@
 </form>
 
 <form class="s-form" method="POST">
+  <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
   <p>Sign up</p>
   <fieldset>
     <label for="username">Username:</label>
     <input type="text" name="username" required>
   </fieldset>
   <fieldset>
+    <label for="email">Email:</label>
+    <input type="text" name="email">
+  </fieldset> 
+  <fieldset>
     <label for="password">Password:</label>
     <input type="password" name="password" required>
   </fieldset>
-  <fieldset>
-    <label for="confirm-password">Confirm Password:</label>
-    <input type="password" name="confirm-password">
-  </fieldset> 
   <button class="btn btn-l-rnd bg-primary fg-llgrey">Register</button>
 </form>
 {% endblock %}

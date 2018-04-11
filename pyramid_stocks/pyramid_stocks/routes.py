@@ -5,3 +5,4 @@ def includeme(config):
     config.add_route('stock', '/stock')
     config.add_route('portfolio', '/portfolio')
     config.add_route('stock-detail', '/portfolio/{symbol}')
+    config.add_route('logout', '/logout')

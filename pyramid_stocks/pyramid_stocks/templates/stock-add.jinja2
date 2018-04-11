@@ -12,6 +12,7 @@
 {% if company %}
   <section class="ticker-detail">
   <form method="POST" action="{{request.route_url('stock')}}">
+    <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
     <p>{{company.companyName}} ({{company.symbol}})</p>
     <p>{{company.website}}</p>
     <p>{{company.exchange}} | issue: {{company.issueType}} | sector: {{company.sector}}</p>
