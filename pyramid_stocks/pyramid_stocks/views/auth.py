@@ -34,22 +34,25 @@ def auth_view(request):
         except KeyError:
             return HTTPBadRequest()
 
+        instance = Account(
+                username=username,
+                email=email,
+                password=password,
+        )
+
+        headers = remember(request, userid=instance.username)
+
         try:
-            instance = Account(
-                    username=username,
-                    email=email,
-                    password=password,
-            )
-
-            headers = remember(request, userid=instance.username)
             request.dbsession.add(instance)
-
-            return HTTPFound(location=request.route_url('portfolio'), headers=headers)
+            request.dbsession.flush()
 
         except IntegrityError:
             return Response(db_err_msg, content_type='text/plain', status=500)
 
         except DBAPIError:
             return Response(db_err_msg, content_type='text/plain', status=500)
+
+        return HTTPFound(location=request.route_url('portfolio'), headers=headers)
+
 
     return HTTPFound(location=request.route_url('home'))
