@@ -12,6 +12,8 @@ from . import db_err_msg
     permission=NO_PERMISSION_REQUIRED
     )
 def auth_view(request):
+    '''Authentication view handles GET and POST requests for signup/signin'''
+
     if request.method == 'GET':
         try:
             username = request.GET['username']

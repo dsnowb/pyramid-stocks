@@ -11,6 +11,11 @@ from . import IEX_API_URL
 
 @view_config(route_name='stock', renderer='../templates/stock-add.jinja2')
 def stock_view(request):
+    '''View to search for stocks
+    GET shows a search bar and optionally details of a stock
+    POST puts a searched stock into a user's portfolio
+    '''
+
     if request.method == 'GET':
         try:
             symbol = request.GET['symbol']
