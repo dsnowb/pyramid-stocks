@@ -1,3 +1,5 @@
+from .association_table import association_table
+from sqlalchemy.orm import relationship
 from sqlalchemy import (
     Column,
     Integer,
@@ -16,6 +18,7 @@ class Account(Base):
     password = Column(Text)
     email = Column(Text)
     username = Column(Text, unique=True)
+    stock_id = relationship('Stock', secondary=association_table, back_populates='account_id')
 
     def __init__(self, username, email, password):
         self.username = username

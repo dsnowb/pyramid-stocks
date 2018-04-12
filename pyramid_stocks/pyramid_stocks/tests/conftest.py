@@ -33,6 +33,7 @@ def configuration(request):
     config = testing.setUp(settings={
         'sqlalchemy.url': 'postgres://localhost:5432/pyramid_stocks_test'
     })
+    config.testing_securitypolicy(userid='bob', permissive=True)
     config.include('..models')
     config.include('..routes')
 

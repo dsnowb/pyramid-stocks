@@ -1,3 +1,5 @@
+IEX_API_URL = 'https://api.iextrading.com/1.0'
+
 db_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
 might be caused by one of the following things:

@@ -5,14 +5,14 @@ def test_constructed_stock_correct_username(db_session):
     stock = Stock(symbol='fake')
     db_session.add(stock)
     assert len(db_session.query(Stock).all()) == 1
-
+'''
 def test_create_stock_without_symbol(db_session):
     from ..models import Stock
     import pytest
 
     with pytest.raises(Exception):
         stock = Stock()
-    
+''' 
 def test_duplicate(db_session):
     from sqlalchemy.exc import IntegrityError
     import pytest
