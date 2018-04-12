@@ -1,5 +1,5 @@
 #!/bin/bash
 set -e
 
-python setup.py develop
+python pyramid_stocks/setup.py develop
 python runapp.py
