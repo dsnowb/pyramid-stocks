@@ -1,0 +1,43 @@
+.btn {
+  cursor: pointer;
+  border-width: 0;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn-l-rnd {
+  width: 200px;                                                                 
+  height: 56px;                                                                 
+  margin: 50px;                                                                 
+  padding-bottom: 6px;                                                          
+  border-radius: 15px;                                                          
+  font-family: Georgia, serif;                                                  
+  font-size: 30px;        
+}
+
+.btn-long {
+  width: 300px;
+}
+
+.btn-s-sq {
+  width: 75px;
+  height: 36px;
+  margin: 10px;
+}
+
+.s-form {
+  text-align: center;
+}
+
+.s-form label {
+  font-family: "Cormorant Garamond";
+  font-size: 28px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.s-form fieldset {
+  margin: 20px;
+}
