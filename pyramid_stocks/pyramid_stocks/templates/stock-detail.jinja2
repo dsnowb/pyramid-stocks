@@ -1,0 +1,14 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+<section class="ticker-detail">
+  <h2>{{company.companyName}}</h2>
+  <p>{{company.exchange}}</p>
+  <h2>{{company.industry}}</h2>
+  <h2>{{company.website}}</h2>
+  <p>{{company.description}}</p>
+  <p>{{company.CEO}}</p>
+  <h2>{{company.issueType}}</h2>
+  <p>{{company.sector}}</p>
+</section>
+{% endblock %}
