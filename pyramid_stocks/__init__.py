@@ -1,3 +1,4 @@
+import os
 from pyramid.config import Configurator
 
 
