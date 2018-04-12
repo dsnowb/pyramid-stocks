@@ -6,6 +6,8 @@ from . import db_err_msg
 
 @view_config(route_name='portfolio', renderer='../templates/portfolio.jinja2')
 def portfolio_view(request):
+    '''View of all a user's stocks. GET only.'''
+
     if request.method == 'GET':
         try:
             q = request.dbsession.query(Account)
