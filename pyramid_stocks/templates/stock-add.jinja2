@@ -1,0 +1,49 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+<form class="s-form" method="GET" action="{{request.route_url('stock')}}">
+  <fieldset>
+    <label for="symbol">Ticker:</label>
+    <input type="text" name="symbol" required>
+  </fieldset>
+  <button class="btn btn-l-rnd btn-long bg-primary fg-llgrey">Search</button>
+</form>
+
+{% if company %}
+  <section class="ticker-detail">
+  <form method="POST" action="{{request.route_url('stock')}}">
+    <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+    <p>{{company.companyName}} ({{company.symbol}})</p>
+    <p>{{company.website}}</p>
+    <p>{{company.exchange}} | issue: {{company.issueType}} | sector: {{company.sector}}</p>
+    <p>CEO: {{company.CEO}}</p>
+    <p>{{company.description}}</p>
+    <table>
+      <thead>
+        <td>Date</td>
+        <td>Open</td>
+        <td>High</td>
+        <td>Low</td>
+        <td>Close</td>
+        <td>Volume</td>
+      </thead>
+
+    {% for day in time_series %}
+      <tr>
+          <td>{{day.date}}</td>
+          <td>{{day.open}}</td>
+          <td>{{day.high}}</td>
+          <td>{{day.low}}</td>
+          <td>{{day.close}}</td>
+          <td>{{day.volume}}</td> 
+      </tr>
+    {% endfor %}
+
+    </table>
+    
+    <button class="btn btn-l-rnd btn-long bg-primary fg-llgrey" name="symbol" value="{{company.symbol}}">Add to Portfolio</button>
+  </form>
+</section>
+{% endif %}
+      
+{% endblock %}
